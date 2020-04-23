@@ -19,7 +19,7 @@ for i in date_dirty_list:
     date_list.append(re.findall(r'2020-\d\d-\d\d', str(i)))
 date_list = [x for l in date_list for x in l]
 date_list = [i.replace('2020-', '') for i in date_list]
-date_list = [i.replace('-', '/') for i in date_list]
+date_list = [x[-2:] + '/' + x[:2] for x in date_list]
 day_mon_list = date_list
 print(date_list)
 
