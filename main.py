@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
 import yfinance as yf
 import re
 import subprocess
 import sys
 
+url = 
 ticker = 'SBER.ME'
-name = 'ПАО Сбербанк'
+name = 'РџРђРћ РЎР±РµСЂР±Р°РЅРє'
 msft = yf.Ticker(ticker)
 
 
@@ -47,9 +49,9 @@ print(list, list2, list3, list4, sep='\n')
 
 
 
-with open("D:/Personal/GitHub/AE/Grafik/data.txt", 'w') as file:
+with open("D:/Personal/GitHub/AE_autographics/data.txt", 'w') as file:
 
-    #Цикл создает массив из значений y, который записывается в файл
+    #Р¦РёРєР» СЃРѕР·РґР°РµС‚ РјР°СЃСЃРёРІ РёР· Р·РЅР°С‡РµРЅРёР№ y, РєРѕС‚РѕСЂС‹Р№ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ РІ С„Р°Р№Р»
     i = 1
     for elements in list4:
         file.write('var y{} = ["{}"];'.format(i, elements) + '\n')
@@ -65,7 +67,7 @@ with open("D:/Personal/GitHub/AE/Grafik/data.txt", 'w') as file:
     file.write('var ticker = ["{}"];'.format(name) + '\n')
 
 
-program = "D:/Personal/GitHub/AE/Grafik/Make_grf.bat"
+program = "D:/Personal/GitHub/AE_autographics/Make_grf.bat"
 process = subprocess.Popen(program)
 exit_code = process.wait()
 
