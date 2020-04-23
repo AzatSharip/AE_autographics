@@ -86,6 +86,14 @@ def write_to_data_file(list4, day_mon_list, name, min_max_middle, plashka=0):
         file.write('var plashka = ["{}"];'.format(plashka) + '\n')
 
 
+def property_to_bat(name):
+    if ' ' in name:
+        name = name.replace(' ', '_')
+    with open("Make_grf.bat", 'w') as file:
+        file.write('chcp 1251\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE_autographics\grafik.aep -comp render -OMtemplate graf -output D:\Personal\GitHub\AE_autographics\\STOVE\{}.mov'.format(name))
+
+
+
 def but_runner():
     program = "D:/Personal/GitHub/AE_autographics/Make_grf.bat"
     process = subprocess.Popen(program)
@@ -99,9 +107,10 @@ def but_runner():
 
 def main():
     url = 'https://finance.yahoo.com/'
-    ticker = 'DSKY.ME'
-    name = 'Detmir'
+    ticker = 'GAZP.ME'
+    name = 'ПАО Газпром'
     msft = yf.Ticker(ticker)
+    #short_name = msft.info['shortName']
     hist = msft.history(period="10d")
 
     date_lst = make_date_values_list(hist)
@@ -110,6 +119,7 @@ def main():
     min_max_middle_last = get_min_max_middle_last(values_lst)
     plashka = red_green_plashka(values_lst)
     write_to_data_file(values_lst_converted, date_lst, name, min_max_middle_last, plashka)
+    property_to_bat(name)
     but_runner()
 
 
