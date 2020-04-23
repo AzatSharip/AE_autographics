@@ -4,7 +4,7 @@ import re
 import subprocess
 import sys
 
-url = 
+url = 'https://finance.yahoo.com/'
 ticker = 'SBER.ME'
 name = 'ПАО Сбербанк'
 msft = yf.Ticker(ticker)
