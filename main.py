@@ -58,9 +58,20 @@ def get_min_max_middle_last(list):
     return min_max_middle
 
 
+def red_green_plashka(list):
+    last_value = list[-1]
+    pre_last_value = list[-2]
+    if last_value >= pre_last_value:
+        plashka = 100
+        print('Плашка будет зеленая')
+    else:
+        plashka = 0
+        print('Плашка будет красная')
+    return plashka
 
-def write_to_data_file(list4, day_mon_list, name, min_max_middle):
-    with open("D:/GitHub/AE_autographics/data.txt", 'w') as file:
+
+def write_to_data_file(list4, day_mon_list, name, min_max_middle, plashka=0):
+    with open("D:/Personal/GitHub/AE_autographics/data.txt", 'w') as file:
         #Цикл создает массив из значений y, который записывается в файл
         i = 1
         for elements in list4:
@@ -72,10 +83,11 @@ def write_to_data_file(list4, day_mon_list, name, min_max_middle):
         file.write('var day_mon = {}'.format(day_mon_list) + '\n')
         file.write('var val_1 = ["{}", "{}", "{}", "{}"];'.format(min_max_middle[0], min_max_middle[1],min_max_middle[2], min_max_middle[3]) + '\n') #min_num, max_num, midle_num, last_point
         file.write('var ticker = ["{}"];'.format(name) + '\n')
+        file.write('var plashka = ["{}"];'.format(plashka) + '\n')
 
 
 def but_runner():
-    program = "D:/GitHub/AE_autographics/Make_grf.bat"
+    program = "D:/Personal/GitHub/AE_autographics/Make_grf.bat"
     process = subprocess.Popen(program)
     exit_code = process.wait()
 
@@ -87,8 +99,8 @@ def but_runner():
 
 def main():
     url = 'https://finance.yahoo.com/'
-    ticker = 'SBER.ME'
-    name = 'Test'
+    ticker = 'DSKY.ME'
+    name = 'Detmir'
     msft = yf.Ticker(ticker)
     hist = msft.history(period="10d")
 
@@ -96,8 +108,8 @@ def main():
     values_lst = make_price_values_list(hist)
     values_lst_converted = list_values_convertor(values_lst)
     min_max_middle_last = get_min_max_middle_last(values_lst)
-
-    write_to_data_file(values_lst_converted, date_lst, name, min_max_middle_last)
+    plashka = red_green_plashka(values_lst)
+    write_to_data_file(values_lst_converted, date_lst, name, min_max_middle_last, plashka)
     but_runner()
 
 
