@@ -107,10 +107,10 @@ def but_runner():
 
 def main():
     url = 'https://finance.yahoo.com/'
-    ticker = 'GAZP.ME'
-    name = 'ПАО Газпром'
+    tickers_dict = {'ПАО Газпром' : 'GAZP.ME', 'ОАО АНК Башнефть' : 'BANE.ME', 'ОАО Нефтекамский автозавод' : 'NFAZ.ME', 'Мечел' : 'MTLR.ME', 'Twitter Inc.' : 'TWTR', 'Фьючерсы на нефть WTI' : 'CL=F', 'Фьючерс на нефть Brent' : 'BZ=F'}
+    name = 'Фьючерс на нефть Brent'
+    ticker = tickers_dict[name]
     msft = yf.Ticker(ticker)
-    #short_name = msft.info['shortName']
     hist = msft.history(period="10d")
 
     date_lst = make_date_values_list(hist)
