@@ -1,2 +1,2 @@
 chcp 1251
-"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\aerender.exe" -project D:\Personal\GitHub\AE_autographics\grafik.aep -comp render -OMtemplate graf -output D:\Personal\GitHub\AE_autographics\STOVE\ПАО_Газпром.mov
+"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\aerender.exe" -project D:\Personal\GitHub\AE_autographics\grafik.aep -comp render -OMtemplate graf -output D:\Personal\GitHub\AE_autographics\STOVE\RYNKI_ОАО_АФК_Система.mov
