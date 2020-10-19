@@ -125,7 +125,7 @@ def main(names_list):
             'Twitter Inc.': 'TWTR', 'American Airlines Group': 'AAL', 'Фьючерсы на нефть WTI': 'CL=F', 'Фьючерс на нефть Brent': 'BZ=F', 'Фьючерс на золото': 'GC=F', 'Индекс Мосбиржи': 'IMOEX.ME',
             'Московская биржа': 'MOEX.ME', 'JPMorgan Chase & Co (JPM)': 'JPM', 'S\\&P 500': '^GSPC', 'The Home Depot Inc.': 'HD', 'ОАО Татнефть': 'TATN.ME', 'Юнайтед Компани РУСАЛ Плс': 'RUAL.ME',
             'Johnson & Johnson': 'JNJ', 'Teladoc Health, Inc.': 'TDOC', 'Nasdaq 100': 'NDX', 'Mail.ru Group Limited': 'MAIL.ME', 'Twilio Inc.': 'TWLO', 'ОАО Северсталь': 'CHMF.ME', 'ОАО Аэрофлот': 'AFLT.ME',
-            'ОАО НОВАТЭК': 'NVTK.ME'
+            'ОАО НОВАТЭК': 'NVTK.ME', 'TCS Group Holding PLC': 'TCSG.ME'
 
 
         }
@@ -156,7 +156,7 @@ def main(names_list):
 
 
 if __name__ == '__main__':
-    main(['S\\&P 500', 'Индекс Мосбиржи', 'ОАО АФК Система'])
+    main(['ОАО АК АЛРОСА', 'ОАО ГМК Норильский никель', 'USD-RUB', 'TCS Group Holding PLC'])
 
 
 
