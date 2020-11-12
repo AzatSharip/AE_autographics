@@ -132,7 +132,7 @@ def main(names_list):
 
         ticker = tickers_dict[name]
         msft = yf.Ticker(ticker)
-        hist = msft.history(period="10d")
+        hist = msft.history(period="20d")
 
         if len(hist) == 9:
             print(len(hist))
@@ -144,7 +144,7 @@ def main(names_list):
         date_lst = make_date_values_list(hist)
         values_lst = make_price_values_list(hist)
 
-        # date_lst = ['22/09', '23/09', '24/09', '25/09', '28/09', '29/09', '30/09', '01/10', '02/10', '05/10']
+        # date_lst = ['09/10', '12/10', '13/10', '14/10', '15/10', '16/10', '19/10', '20/10', '21/10', '22/10']
         # values_lst = [2306.4,2324.0,2215.5,2199.5,2208.8,2155.4,2133.9,2156.0,2200.6,2190.6]
 
         values_lst_converted = list_values_convertor(values_lst)
@@ -156,7 +156,7 @@ def main(names_list):
 
 
 if __name__ == '__main__':
-    main(['ОАО АК АЛРОСА', 'ОАО ГМК Норильский никель', 'USD-RUB', 'TCS Group Holding PLC'])
+    main(['Индекс Мосбиржи'])
 
 
 
