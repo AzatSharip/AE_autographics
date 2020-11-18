@@ -4,6 +4,9 @@ import re
 import subprocess
 import sys
 import pytz
+import pickle
+import os
+import time
 
 
 
@@ -113,26 +116,12 @@ def but_runner():
 
 
 
-def main(names_list):
+def main(names_list, tickers_dict):
     for name in names_list:
         url = 'https://finance.yahoo.com/'
-        tickers_dict = {
-            'Lenta Ltd.': 'LNTA.ME', 'Tesla inc.': 'TSLA', 'Salesforce.com Inc.': 'CRM', 'Exxon Mobil Corp.': 'XOM', 'ПАО СБЕРБАНК': 'SBER.ME', 'ОАО АК АЛРОСА': 'ALRS.ME',
-            'ОАО АФК Система': 'AFKS.ME', 'Facebook Inc.': 'FB', 'Microsoft Corp.': 'MSFT', 'Банк ВТБ': 'VTBR.ME', 'ОАО Группа Компаний ПИК': 'PIKK.ME',
-            'ПАО Детский мир': 'DSKY.ME', 'QIWI plc': 'QIWI.ME', 'ОАО Мобильные ТелеСистемы': 'MTSS.ME', 'Lenozoloto PAO Pref': 'LNZLP.ME', 'Яндекс': 'YNDX.ME', 'РОС АГРО ПЛС': 'AGRO.ME',
-            'Россети': 'RSTI.ME', 'USD-RUB': 'RUB=X', 'ОАО ГМК Норильский никель': 'GMKN.ME', 'Apple inc.': 'AAPL', 'Alibaba Group Holding Limited': 'BABA', 'ПАО Роснефть': 'ROSN.ME',
-            'ПАО Газпром': 'GAZP.ME', 'ОАО АНК Башнефть': 'BANE.ME', 'ОАО АНК Башнефть_П': 'BANEP.ME', 'Сургутнефтегаз_П': 'SNGSP.ME', 'ОАО Нефтекамский автозавод': 'NFAZ.ME', 'Мечел': 'MTLR.ME',
-            'Twitter Inc.': 'TWTR', 'American Airlines Group': 'AAL', 'Фьючерсы на нефть WTI': 'CL=F', 'Фьючерс на нефть Brent': 'BZ=F', 'Фьючерс на золото': 'GC=F', 'Индекс Мосбиржи': 'IMOEX.ME',
-            'Московская биржа': 'MOEX.ME', 'JPMorgan Chase & Co (JPM)': 'JPM', 'S\\&P 500': '^GSPC', 'The Home Depot Inc.': 'HD', 'ОАО Татнефть': 'TATN.ME', 'Юнайтед Компани РУСАЛ Плс': 'RUAL.ME',
-            'Johnson & Johnson': 'JNJ', 'Teladoc Health, Inc.': 'TDOC', 'Nasdaq 100': 'NDX', 'Mail.ru Group Limited': 'MAIL.ME', 'Twilio Inc.': 'TWLO', 'ОАО Северсталь': 'CHMF.ME', 'ОАО Аэрофлот': 'AFLT.ME',
-            'ОАО НОВАТЭК': 'NVTK.ME', 'TCS Group Holding PLC': 'TCSG.ME'
-
-
-        }
-
         ticker = tickers_dict[name]
         msft = yf.Ticker(ticker)
-        hist = msft.history(period="20d")
+        hist = msft.history(period="10d")
 
         if len(hist) == 9:
             print(len(hist))
@@ -156,7 +145,111 @@ def main(names_list):
 
 
 if __name__ == '__main__':
-    main(['Индекс Мосбиржи'])
+    path = os.getcwd()
+    # tickers_dict_reserv = {
+    #         'Lenta Ltd.': 'LNTA.ME', 'Tesla inc.': 'TSLA', 'Salesforce.com Inc.': 'CRM', 'Exxon Mobil Corp.': 'XOM',
+    #         'ПАО СБЕРБАНК': 'SBER.ME', 'ОАО АК АЛРОСА': 'ALRS.ME',
+    #         'ОАО АФК Система': 'AFKS.ME', 'Facebook Inc.': 'FB', 'Microsoft Corp.': 'MSFT', 'Банк ВТБ': 'VTBR.ME',
+    #         'ОАО Группа Компаний ПИК': 'PIKK.ME',
+    #         'ПАО Детский мир': 'DSKY.ME', 'QIWI plc': 'QIWI.ME', 'ОАО Мобильные ТелеСистемы': 'MTSS.ME',
+    #         'Lenozoloto PAO Pref': 'LNZLP.ME', 'Яндекс': 'YNDX.ME', 'РОС АГРО ПЛС': 'AGRO.ME',
+    #         'Россети': 'RSTI.ME', 'USD-RUB': 'RUB=X', 'ОАО ГМК Норильский никель': 'GMKN.ME', 'Apple inc.': 'AAPL',
+    #         'Alibaba Group Holding Limited': 'BABA', 'ПАО Роснефть': 'ROSN.ME',
+    #         'ПАО Газпром': 'GAZP.ME', 'ОАО АНК Башнефть': 'BANE.ME', 'ОАО АНК Башнефть_П': 'BANEP.ME',
+    #         'Сургутнефтегаз_П': 'SNGSP.ME', 'ОАО Нефтекамский автозавод': 'NFAZ.ME', 'Мечел': 'MTLR.ME',
+    #         'Twitter Inc.': 'TWTR', 'American Airlines Group': 'AAL', 'Фьючерсы на нефть WTI': 'CL=F',
+    #         'Фьючерс на нефть Brent': 'BZ=F', 'Фьючерс на золото': 'GC=F', 'Индекс Мосбиржи': 'IMOEX.ME',
+    #         'Московская биржа': 'MOEX.ME', 'JPMorgan Chase & Co (JPM)': 'JPM', 'S\\&P 500': '^GSPC',
+    #         'The Home Depot Inc.': 'HD', 'ОАО Татнефть': 'TATN.ME', 'Юнайтед Компани РУСАЛ Плс': 'RUAL.ME',
+    #         'Johnson & Johnson': 'JNJ', 'Teladoc Health, Inc.': 'TDOC', 'Nasdaq 100': 'NDX',
+    #         'Mail.ru Group Limited': 'MAIL.ME', 'Twilio Inc.': 'TWLO', 'ОАО Северсталь': 'CHMF.ME',
+    #         'ОАО Аэрофлот': 'AFLT.ME',
+    #         'ОАО НОВАТЭК': 'NVTK.ME', 'TCS Group Holding PLC': 'TCSG.ME'
+    #
+    #     }
+    #
+    # with open(f'{path}/tickers_dict.pickle', 'wb') as f:
+    #     pickle.dump(tickers_dict_reserv, f)
+
+    # sys.exit()
+
+    # Читаем словарь из файла
+    with open(f'{path}/tickers_dict.pickle', 'rb') as f:
+        tickers_dict = pickle.load(f)
+
+    status = True
+    main_status = True
+    user_tickers_dict = []
+
+    while main_status:
+        todo = int(input('Строим график (1), добавить в базу (2), удалить из базы (0), показать базу (6), выход из программы (9): '))
+        if todo == 1:
+            while status:
+                user_input = input('Введи название компании, когда закончишь (run): ')
+                if user_input == 'run':
+                    status = False
+
+                # else:
+                #     for k, v in tickers_dict.items():
+                #         if user_input == v[0]:
+                #             print(v[0])
+                #             user_tickers_dict.append(k)
+
+                elif user_input in tickers_dict:
+                    user_tickers_dict.append(user_input)
+
+                else:
+                    print(f'Ошибка или {user_input} нет в базе! Пробуем снова')
+
+            print(user_tickers_dict)
+            time.sleep(1)
+            main(user_tickers_dict, tickers_dict)
+
+        elif todo == 2:
+            new_key = input('Введи имя: ')
+            new_value = input('Введи тикер: ')
+
+            tickers_dict[new_key] = new_value
+            # Сохраняем словарь в файл
+            with open(f'{path}/tickers_dict.pickle', 'wb') as f:
+                pickle.dump(tickers_dict, f)
+            print()
+
+        elif todo == 0:
+            del_el = input('Кого удаляем: ')
+            del tickers_dict[del_el]
+            with open(f'{path}/tickers_dict.pickle', 'wb') as f:
+                pickle.dump(tickers_dict, f)
+            print()
+
+        elif todo == 6:
+            i = 0
+            for k,v in tickers_dict.items():
+                i += 1
+                print(f'{i} - {k}')
+            #     tickers_dict[k] = []
+            #     tickers_dict[k].append(i)
+            #     tickers_dict[k].append(v)
+            #
+            # with open(f'{path}/tickers_dict.pickle', 'wb') as f:
+            #     pickle.dump(tickers_dict, f)
+            #
+            # print(tickers_dict)
+            print()
+
+        elif todo == 9:
+            time.sleep(2)
+            main_status = False
+
+        else:
+            print('Такой команды нет...')
+            print()
+
+
+
+
+    #main(['Индекс Мосбиржи'], tickers_dict)
+
 
 
 

@@ -1,4 +1,10 @@
 grafik.aep Logs/
+dist/
+build/
+main/
 STOVE/
 *.txt
+*.png
+*.toc
+*.pyz
 
