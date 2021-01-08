@@ -123,6 +123,7 @@ def main(names_list, tickers_dict):
         msft = yf.Ticker(ticker)
         hist = msft.history(period="10d")
 
+
         if len(hist) == 9:
             print(len(hist))
             hist = msft.history(period="11d")
@@ -133,8 +134,8 @@ def main(names_list, tickers_dict):
         date_lst = make_date_values_list(hist)
         values_lst = make_price_values_list(hist)
 
-        # date_lst = ['09/10', '12/10', '13/10', '14/10', '15/10', '16/10', '19/10', '20/10', '21/10', '22/10']
-        # values_lst = [2306.4,2324.0,2215.5,2199.5,2208.8,2155.4,2133.9,2156.0,2200.6,2190.6]
+        # date_lst = ['09/11', '10/11', '11/11', '12/11', '13/11', '16/11', '17/11', '18/11', '19/11', '20/11']
+        # values_lst = [2.66,2.6,2.56,2.74,2.9,2.96,2.82,2.96,2.9,2.88]
 
         values_lst_converted = list_values_convertor(values_lst)
         min_max_middle_last = get_min_max_middle_last(values_lst)
@@ -164,9 +165,11 @@ if __name__ == '__main__':
     #         'Johnson & Johnson': 'JNJ', 'Teladoc Health, Inc.': 'TDOC', 'Nasdaq 100': 'NDX',
     #         'Mail.ru Group Limited': 'MAIL.ME', 'Twilio Inc.': 'TWLO', 'ОАО Северсталь': 'CHMF.ME',
     #         'ОАО Аэрофлот': 'AFLT.ME',
-    #         'ОАО НОВАТЭК': 'NVTK.ME', 'TCS Group Holding PLC': 'TCSG.ME'
+    #         'ОАО НОВАТЭК': 'NVTK.ME', 'TCS Group Holding PLC': 'TCSG.ME', 'GLOBAL PORTS INVESTMENTS': 'GLPR.IL'
     #
     #     }
+    #
+    # main(['GLOBAL PORTS INVESTMENTS'], tickers_dict_reserv)
     #
     # with open(f'{path}/tickers_dict.pickle', 'wb') as f:
     #     pickle.dump(tickers_dict_reserv, f)
